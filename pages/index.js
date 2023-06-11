@@ -2,9 +2,8 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import UserInput from '../components/userInput';
 import Navbar from '../components/Navbar';
-import ProblemCell from '../components/Cell';
 import ProblemGrid from '../components/Grid';
-import Row from '../components/Row';
+import Footer from '../components/Footer';
 
 export default function Home() {
 
@@ -41,7 +40,7 @@ export default function Home() {
 				<title>Create Next App</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
+			<Footer />
 		</div>
 	)
 }

@@ -22,28 +22,23 @@ export default function UserInput() {
         }
     }
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //        
-
     return (
-        // <ProblemDataContext.Provider value={problemData}>
         <Box
             component="form"
             sx={{
                 '& > :not(style)': { m: 1, width: '25ch' },
+                paddingY: '20px'
             }}
             noValidate
             autoComplete="off"
             >
             <TextField id="outlined-basic" onChange={(e) => {setUser(e.target.value)}} label="userID" variant="outlined" sx={{
-                height: "50px"
+                height: "50px",
             }} />
             <Button variant="contained" onClick={handleSubmit} sx={{
                 height: "50px",
                 
             }}>Submit</Button>
         </Box>
-        // </ProblemDataContext.Provider>
     );
 }
