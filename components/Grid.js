@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Row from './Row';
 import { useState, useEffect} from 'react';
 import axios from 'axios';
+import { userState } from './userState'
 
 export default function ProblemGrid( props ) {
 
@@ -21,7 +22,7 @@ export default function ProblemGrid( props ) {
             }
         }
         fetchData()
-    },[])
+    },[userState((state) => state.username)])
         
     const getRows = () => {
         let inRows = []

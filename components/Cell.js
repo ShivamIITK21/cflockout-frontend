@@ -45,9 +45,11 @@ export default function ProblemCell( props ) {
             <Box onClick={handleRedirect} 
                 sx={{
                     height: 30,
-                    border: "1px solid #333333",
+                    border: "2px solid #333333",
+                    borderCollapse: "collapse",
                     paddingX: "8px",
                     paddingY: "4px",
+                    margin: "-1px",
                     backgroundColor: getBGColor(problem.verdict),
                     '&:hover': {
                         cursor: "pointer",

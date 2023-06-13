@@ -1,26 +1,33 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { createContext, useEffect, useState } from 'react';
+import { useState } from 'react';
+import { userState } from './userState'
 import axios from 'axios';
 
-// export const ProblemDataContext = createContext()
+
 export default function UserInput() {
 
     const [user, setUser] = useState("")
-    const [problemData, setProblemData] = useState([])
+    const setUsername = userState((state) => state.setUsername)
 
-    async function handleSubmit() {
-        if(user == "") return
-        const url = "http://localhost:8080/problems?user=" + user
-        console.log(url)
-        try{
-            const response = await axios.get(url)
-            setProblemData(response.data)
-        }catch(err){
-            console.log(err)
-        }
-    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setUsername(user);
+        setUser('');
+    };
+
+    // async function handleSubmit() {
+    //     if(user == "") return
+    //     const url = "http://localhost:8080/problems?user=" + user
+    //     console.log(url)
+    //     try{
+    //         const response = await axios.get(url)
+    //         setProblemData(response.data)
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    // }
 
     return (
         <Box
@@ -37,7 +44,6 @@ export default function UserInput() {
             }} />
             <Button variant="contained" onClick={handleSubmit} sx={{
                 height: "50px",
-                
             }}>Submit</Button>
         </Box>
     );
