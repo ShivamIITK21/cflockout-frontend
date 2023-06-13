@@ -2,19 +2,18 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import { userState } from './userState'
 import axios from 'axios';
+import useStore from './store';
 
 
 export default function UserInput() {
 
-    const [user, setUser] = useState("")
-    const setUsername = userState((state) => state.setUsername)
+    const setUser = useStore((state) => state.setUsername)
+    const [input, setInput] = useState("")
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setUsername(user);
-        setUser('');
+    const handleSubmit = () => {
+        if(input == "") return
+        setUser(input)
     };
 
     // async function handleSubmit() {
@@ -39,7 +38,7 @@ export default function UserInput() {
             noValidate
             autoComplete="off"
             >
-            <TextField id="outlined-basic" onChange={(e) => {setUser(e.target.value)}} label="userID" variant="outlined" sx={{
+            <TextField id="outlined-basic" onChange={(e) => {setInput(e.target.value)}} label="userID" variant="outlined" sx={{
                 height: "50px",
             }} />
             <Button variant="contained" onClick={handleSubmit} sx={{

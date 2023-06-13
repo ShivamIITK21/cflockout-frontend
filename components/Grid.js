@@ -4,11 +4,13 @@ import Grid from '@mui/material/Grid';
 import Row from './Row';
 import { useState, useEffect} from 'react';
 import axios from 'axios';
-import { userState } from './userState'
+import useStore from './store';
 
 export default function ProblemGrid( props ) {
 
     const [problemData, setProblemData] = useState([])
+    const user = useStore((state) => state.username)
+    
     
     useEffect(() => {
         const fetchData = async function(){
@@ -22,7 +24,7 @@ export default function ProblemGrid( props ) {
             }
         }
         fetchData()
-    },[userState((state) => state.username)])
+    },[user])
         
     const getRows = () => {
         let inRows = []
@@ -56,6 +58,7 @@ export default function ProblemGrid( props ) {
                     </Grid>
                 ))}
             </Grid>
+            <h1>{user}</h1>
         </Box>
     );
 }

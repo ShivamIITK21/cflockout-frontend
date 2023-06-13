@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
-const userState = create((set) => ({
-    username: "",
+const useStore = create((set) => ({
+    username: "yuvraj loda",
     setUsername: (newUsername) => set(() => ({ username: newUsername })),
 }))
 
-export default userState
+export default useStore
