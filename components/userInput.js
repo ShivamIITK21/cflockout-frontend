@@ -16,18 +16,6 @@ export default function UserInput() {
         setUser(input)
     };
 
-    // async function handleSubmit() {
-    //     if(user == "") return
-    //     const url = "http://localhost:8080/problems?user=" + user
-    //     console.log(url)
-    //     try{
-    //         const response = await axios.get(url)
-    //         setProblemData(response.data)
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // }
-
     return (
         <Box
             component="form"

@@ -44,7 +44,7 @@ export default function ProblemCell( props ) {
         <div>
             <Box onClick={handleRedirect} 
                 sx={{
-                    height: 30,
+                    height: 35,
                     border: "2px solid #333333",
                     borderCollapse: "collapse",
                     paddingX: "8px",

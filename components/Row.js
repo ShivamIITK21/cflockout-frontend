@@ -12,13 +12,15 @@ export default function Row(props) {
             flexGrow: 1,
             width: '90%',
             marginX: '5%', 
-        }}>
-            <Grid container>
-                {problems.map((problem) => (
-                    <Grid item xs={5} sm={3} md={2} key={problem.contestId + problem.index}>
-                        <ProblemCell problem={problem}/>
-                    </Grid>
-                ))}
+        }}> 
+            <Grid container spacing={2}>
+                <Grid item xs={12} container direction={"row"}>
+                    {problems.map((problem) => (
+                        <Grid item xs={5} sm={3} md={2} key={problem.contestId + problem.index}>
+                            <ProblemCell problem={problem}/>
+                        </Grid>
+                    ))}
+                </Grid>
             </Grid>
         </Box>
     )
