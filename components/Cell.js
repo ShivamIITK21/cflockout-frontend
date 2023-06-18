@@ -33,8 +33,6 @@ const getBGColor = (status) => {
 export default function ProblemCell( props ) {
 
     const { problem } = props
-    var pName = problem.name
-    if(pName.length > 16)   pName = pName.slice(0, 13) + "..."
 
     function handleRedirect(){
         window.open("https://codeforces.com/contest/" + problem.contestId + "/problem/" + problem.index)
@@ -44,11 +42,11 @@ export default function ProblemCell( props ) {
         <div>
             <Box onClick={handleRedirect} 
                 sx={{
-                    height: 35,
+                    height: 40,
                     border: "2px solid #333333",
                     borderCollapse: "collapse",
                     paddingX: "8px",
-                    paddingY: "4px",
+                    paddingY: "3px",
                     margin: "-1px",
                     backgroundColor: getBGColor(problem.verdict),
                     '&:hover': {
@@ -59,22 +57,29 @@ export default function ProblemCell( props ) {
                 <Grid container spacing={0}>
                     <Grid item sx={{
                         paddingLeft: "2px",
+                        width: "100%",
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        '&:hover': {
+                            textDecoration: "underline", 
+                            color: ColorMap(problem.rating),
+                        },
                     }}>
                         <Typography variant='h6' sx={{
-                            fontSize: "14px",
+                            fontSize: "16px",
                             fontWeight: "500",
-                            color: ColorMap(problem.rating)
-                        }}>{problem.index}. {pName}</Typography>
+                            color: ColorMap(problem.rating),
+                        }}>{problem.index}. {problem.name}</Typography>
                     </Grid>
                     <Grid item xs={12} sx={{
-                        paddingRight: '5px',
+                        paddingRight: '10px',
                         textAlign: 'right',
                         color: ColorMap(problem.rating),
                     }}>
                         <Typography variant='subtitle2' sx={{
                             fontWeight: "500",
                             fontSize: "10px",
-                            paddingBottom: "1px",
                         }}>{problem.rating}</Typography>
                     </Grid>
                 </Grid>

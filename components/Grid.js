@@ -45,14 +45,18 @@ export default function ProblemGrid(props) {
                 break;
             }
             if (x.contestId != prev) {
-                inRows.push(row);
+                if(row.length){
+                    inRows.push(row);
+                }
                 row = [x];
             } else {
                 row.push(x);
             }
             prev = x.contestId;
         }
-        inRows.push(row);
+        if(row.length){
+            inRows.push(row)
+        }
         return inRows;
     };
 
