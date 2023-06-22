@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import { Typography, getInitColorSchemeScript } from '@mui/material';
 
 const ColorMap = (rating) => {
     if(rating == 0) return "black"
@@ -19,7 +19,7 @@ const ColorMap = (rating) => {
 
 const getBGColor = (status) => {
     if(status=="AC"){
-        return "rgba(111, 211, 184, 0.7)"
+        return "#85FFBA"
     }
     else if(status=="WA"){
         return "rgba(247, 124, 124, 0.5)"
@@ -29,6 +29,17 @@ const getBGColor = (status) => {
     }
 }
 
+const getColor = (status) => {
+    if(status=="AC"){
+        return "#2FEE9C"
+    }
+    else if(status=="WA"){
+        return "#ff9999"
+    }
+    else{
+        return "#EAE1DF"
+    }
+}
 
 export default function ProblemCell( props ) {
 
@@ -42,8 +53,8 @@ export default function ProblemCell( props ) {
         <div>
             <Box onClick={handleRedirect} 
                 sx={{
-                    height: 40,
-                    border: "2px solid #333333",
+                    height: 45,
+                    border: "2px solid #565264",
                     borderCollapse: "collapse",
                     paddingX: "8px",
                     paddingY: "3px",
@@ -51,6 +62,7 @@ export default function ProblemCell( props ) {
                     backgroundColor: getBGColor(problem.verdict),
                     '&:hover': {
                         cursor: "pointer",
+                        backgroundColor: getColor(problem.verdict),
                     },
                 }}
                 >
@@ -62,13 +74,13 @@ export default function ProblemCell( props ) {
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
                         '&:hover': {
-                            textDecoration: "underline", 
                             color: ColorMap(problem.rating),
                         },
                     }}>
                         <Typography variant='h6' sx={{
-                            fontSize: "16px",
+                            fontSize: "18px",
                             fontWeight: "500",
+                            fontFamily: "'Mukta', sans-serif",
                             color: ColorMap(problem.rating),
                         }}>{problem.index}. {problem.name}</Typography>
                     </Grid>
@@ -79,7 +91,8 @@ export default function ProblemCell( props ) {
                     }}>
                         <Typography variant='subtitle2' sx={{
                             fontWeight: "500",
-                            fontSize: "10px",
+                            fontSize: "13px",
+                            fontFamily: "'Mukta', sans-serif",
                         }}>{problem.rating}</Typography>
                     </Grid>
                 </Grid>

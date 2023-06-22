@@ -3,8 +3,13 @@ import { Box } from "@mui/material";
 import ProblemCell from "./Cell";
 
 export default function Row(props) {
+
     const ID = props.contestId;
     const problems = props.problems;
+
+    function handleRedirectContest(){
+        window.open("https://codeforces.com/contest/" + problems[0].contestId)
+    }
 
     return (
         <Box
@@ -21,14 +26,21 @@ export default function Row(props) {
                     item
                     sx={{
                         width: "10%",
-                        border: "2px solid #333333",
+                        border: "2px solid #565264",
                         marginY: "-1px",
                         marginRight: "-1px",
                         textAlign: "center",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        fontFamily: "'Mukta', sans-serif",
+                        fontSize: "22px",
+                        '&:hover': {
+                            cursor: "pointer",
+                            backgroundColor: "#EAE1DF",
+                        },
                     }}
+                    onClick={handleRedirectContest}
                 >
                     {problems.length==0 ? "" : problems[0].contestId}
                 </Grid>

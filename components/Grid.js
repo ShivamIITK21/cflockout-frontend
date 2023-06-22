@@ -6,8 +6,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Row from "./Row";
+import { Stack, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import { lastContestStore } from "./GetProblems";
+import GoToPage from "./GoToPage";
 
 
 export default function ProblemGrid(props) {
@@ -16,7 +18,7 @@ export default function ProblemGrid(props) {
     const lc = lastContestStore((state) => state.lastContest);
     const [page, setPage] = useState(1);
     const numPages = Math.ceil(lc / 50);
-    const handleChange = (event, value) => {
+    const handleChange = (e, value) => {
         setPage(value);
     };
 
@@ -77,27 +79,38 @@ export default function ProblemGrid(props) {
                     ))}
             </Grid>
             {(numPages == 0 ? "" : numPages) && (
-                <Pagination
-                    count={numPages}
-                    color="primary"
-                    shape="rounded"
-                    sx={{
-                        marginY: "20px",
-                        display: "flex",
-                        justifyContent: "center",
-                    }}
-                    renderItem={(item) => (
-                        <PaginationItem
-                            slots={{
-                                previous: ArrowBackIcon,
-                                next: ArrowForwardIcon,
-                            }}
-                            {...item}
-                        />
-                    )}
-                    page={page}
-                    onChange={handleChange}
-                />
+                <Stack>
+                    <Pagination
+                        count={numPages}
+                        siblingCount={1}
+                        boundaryCount={1}
+                        color="grey"
+                        shape="rounded"
+                        sx={{
+                            marginTop: "20px",
+                            marginBottom: "8px",
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                        renderItem={(item) => (
+                            <PaginationItem
+                                slots={{
+                                    previous: ArrowBackIcon,
+                                    next: ArrowForwardIcon,
+                                }}
+                                {...item}
+                            />
+                        )}
+                        page={page}
+                        onChange={handleChange}
+                    />
+                    <Box sx={{
+                        textAlign: "center",
+                        fontFamily: "'Mukta', sans-serif",
+                    }}>
+                        Go to page : <GoToPage page={page} setPage={setPage} numPages={numPages}/>
+                    </Box>
+                </Stack>
             )}
         </Box>
     );

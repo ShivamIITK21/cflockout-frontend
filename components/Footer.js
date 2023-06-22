@@ -6,18 +6,18 @@ export default function Footer() {
         <Box
             sx={{
 				marginTop: "20px",
-				borderTop: "1px solid rgba(0, 0, 0, 0.5)",
                 width: "100%",
 				color: "black",
                 height: 100,
-				fontSize: "30px"
+				fontSize: "30px",
+				backgroundColor: "#d4d4d4"
             }}
         >
 			<Typography sx={{
 				padding: "10px",
 				textAlign: "center",
 			}}>
-				Made By Programming Club IITK
+				Made by Programming Club IITK
 			</Typography>
 		</Box>
     );

@@ -2,24 +2,25 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import useStore from "./store";
 
-export default function UserInput() {
-    const setUser = useStore((state) => state.setUsername);
-    const [input, setInput] = useState("");
+export default function GoToPage(props){
+
+    const pg = props.page;
+    const setPg = props.setPage;
+    const numPgs = props.numPages
+    const [dummy, setDummy] = useState(pg)
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (input == "") return;
-        setUser(input);
+        if(dummy > numPgs || dummy<1)     return
+        setPg(parseInt(dummy, 10))
     };
 
     return (
         <Box
             component="form"
             sx={{
-                "& > :not(style)": { m: 1, width: "25ch" },
-                marginLeft: "2%",
+                textAlign: "center"
             }}
             noValidate
             autoComplete="off"
@@ -27,16 +28,16 @@ export default function UserInput() {
         >
             <TextField
                 id="filled-hidden-label-small"
-                value={input}
+                value={dummy}
                 onChange={(e) => {
-                    setInput(e.target.value);
+                    setDummy(e.target.value);
                 }}
-                placeholder="userID"
                 size="small"
                 variant="outlined"
                 color="grey"
                 sx={{
                     height: "30px",
+                    width: "5ch",
                 }}
             />
             <Button
@@ -45,16 +46,17 @@ export default function UserInput() {
                 onClick={handleSubmit}
                 sx={{
                     height: "40px",
-                    margin: "0px",
-                    padding: "0px",
+                    marginX: "5px",
+                    paddingX: "0px",
+                    width: "0px",
                     backgroundColor: "#525252",
                     '&:hover': {
                         backgroundColor: "#222222",
                     },
                 }}
             >
-                Submit
+                GO
             </Button>
         </Box>
-    );
+    )
 }
