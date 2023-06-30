@@ -5,7 +5,7 @@ import { useState } from "react";
 import useStore from "./store";
 
 export default function UserInput() {
-    const setUser = useStore((state) => state.setUsername);
+    const setUser = useStore((state) => state.setCurrentCFID);
     const [input, setInput] = useState("");
 
     const handleSubmit = (e) => {
@@ -47,7 +47,8 @@ export default function UserInput() {
                     height: "40px",
                     margin: "0px",
                     padding: "0px",
-                    backgroundColor: "#525252",
+                    color: "#d4d4d4",
+                    backgroundColor: "#2b2d42",
                     '&:hover': {
                         backgroundColor: "#222222",
                     },

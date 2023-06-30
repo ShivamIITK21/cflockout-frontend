@@ -5,6 +5,9 @@ import axios from 'axios';
 import useStore from './store';
 import { create } from 'zustand'
 import ProblemGrid from './Grid';
+import Grid from '@mui/material'
+import UserInput from "../components/userInput";
+
 
 export const probStore = create((set) => ({
     problems : [],
@@ -18,7 +21,7 @@ export const lastContestStore = create((set) => ({
 
 export default function Problems() {
 
-    const user = useStore((state) => state.username)
+    const currentCFID = useStore((state) => state.currentCFID)
     const probs = probStore((state) => state.problems)
     const setProbs = probStore((state) => state.setProblems)
     const setLC = lastContestStore((state) => state.setLastContest)
@@ -27,7 +30,7 @@ export default function Problems() {
     useEffect(() => {
         const fetchData = async function(){
             let url = "http://localhost:8080/problems"
-            if(user!="")    url = url + "?user=" + user
+            if(currentCFID!="")    url = url + "?user=" + currentCFID
             try{
                 const response = await axios.get(url)
                 setLC(response.data[0].contestId)
@@ -37,10 +40,18 @@ export default function Problems() {
             }
         }
         fetchData()
-    },[user])
+    },[currentCFID])
 
     return (
         <Box sx={{ flexGrow: 1 }}>
+            <Box
+                sx={{
+                    backgroundColor: "#d4d4d4",
+                    height: "60px",
+                }}
+            >
+                <UserInput />
+            </Box>
             <ProblemGrid problems={probs} lastContest={lc} />
         </Box>
     );

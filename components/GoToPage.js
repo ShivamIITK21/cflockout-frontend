@@ -6,9 +6,10 @@ import { useState } from "react";
 export default function GoToPage(props){
 
     const pg = props.page;
-    const setPg = props.setPage;
+    const setPg = props.setPage
     const numPgs = props.numPages
-    const [dummy, setDummy] = useState(pg)
+    const dummy = props.dummy
+    const setDummy = props.setDummy
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -49,7 +50,7 @@ export default function GoToPage(props){
                     marginX: "5px",
                     paddingX: "0px",
                     width: "0px",
-                    backgroundColor: "#525252",
+                    backgroundColor: "#2b2d42",
                     '&:hover': {
                         backgroundColor: "#222222",
                     },

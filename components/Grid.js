@@ -11,15 +11,15 @@ import { useState, useEffect } from "react";
 import { lastContestStore } from "./GetProblems";
 import GoToPage from "./GoToPage";
 
-
 export default function ProblemGrid(props) {
-
     const problemData = props.problems;
     const lc = lastContestStore((state) => state.lastContest);
     const [page, setPage] = useState(1);
+    const [dummy, setDummy] = useState(1);
     const numPages = Math.ceil(lc / 50);
     const handleChange = (e, value) => {
         setPage(value);
+        setDummy(value);
     };
 
     const getRows = () => {
@@ -28,9 +28,10 @@ export default function ProblemGrid(props) {
         let inRows = [];
         let row = [];
         let prev = lc - 50 * (page - 1);
-        let first = prev
+        let first = prev;
 
-        let nn = -1, yy = problemData.length;
+        let nn = -1,
+            yy = problemData.length;
         while (nn + 1 < yy) {
             var mid = Math.floor((yy + nn) / 2);
             if (problemData[mid].contestId <= prev) {
@@ -47,7 +48,7 @@ export default function ProblemGrid(props) {
                 break;
             }
             if (x.contestId != prev) {
-                if(row.length){
+                if (row.length) {
                     inRows.push(row);
                 }
                 row = [x];
@@ -56,8 +57,8 @@ export default function ProblemGrid(props) {
             }
             prev = x.contestId;
         }
-        if(row.length){
-            inRows.push(row)
+        if (row.length) {
+            inRows.push(row);
         }
         return inRows;
     };
@@ -68,10 +69,10 @@ export default function ProblemGrid(props) {
 
     let i = 0;
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1, marginTop: "30px" }}>
             <Grid container>
                 {lc &&
-                    problemData.length > 10 &&
+                    problemData.length > 1 &&
                     getRows().map((problemRow) => (
                         <Grid item xs={12} key={(i = i + 1)}>
                             <Row problems={problemRow} />
@@ -104,11 +105,20 @@ export default function ProblemGrid(props) {
                         page={page}
                         onChange={handleChange}
                     />
-                    <Box sx={{
-                        textAlign: "center",
-                        fontFamily: "'Mukta', sans-serif",
-                    }}>
-                        Go to page : <GoToPage page={page} setPage={setPage} numPages={numPages}/>
+                    <Box
+                        sx={{
+                            textAlign: "center",
+                            fontFamily: "'Mukta', sans-serif",
+                        }}
+                    >
+                        Go to page :{" "}
+                        <GoToPage
+                            page={page}
+                            setPage={setPage}
+                            numPages={numPages}
+                            dummy={dummy}
+                            setDummy={setDummy}
+                        />
                     </Box>
                 </Stack>
             )}
