@@ -51,6 +51,7 @@ export default function SignInSide() {
     const setUserCFID = useStore((state) => state.setUserCFID);
     const setCurrentCFID = useStore((state) => state.setCurrentCFID);
     const setUsername = useStore((state) => state.setUsername);
+    const setToken = useStore((state) => state.setToken);
     const router = useRouter();
     const [notFoundMessage, setNotFoundMessage] = useState(false);
     const [incorrectPassMessage, setIncorrectPassMessage] = useState(false);
@@ -67,6 +68,7 @@ export default function SignInSide() {
             .then((res) => {
                 if (res.data.token != null) {
                     setUserCFID(res.data.cfID);
+                    setToken(res.data.token);
                     setCurrentCFID("");
                     setUsername(data.get("username"));
                     setIncorrectPassMessage(false);
@@ -83,7 +85,6 @@ export default function SignInSide() {
                     setNotFoundMessage(false);
                     setIncorrectPassMessage(true);
                 }
-                // console.log(error.response.data.error);
             });
     };
 

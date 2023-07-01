@@ -66,7 +66,7 @@ export default function SignUpSide() {
     };
 
     const signupDone = () => {
-        router.push("/");
+        router.push("/login");
     };
 
     const handleSubmit = (event) => {

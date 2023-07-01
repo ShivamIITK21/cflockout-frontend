@@ -1,8 +1,13 @@
-import { Box, Typography, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { useRouter } from "next/router";
-import TextField from "@mui/material/TextField";
+import ContestDetails from "../components/contestDetails";
+import ProblemDetails from "../components/problemDetails";
+import { useState } from "react";
+import axios from "axios";
+import useStore from "../components/store";
 
 const defaultTheme = createTheme({
     palette: {
@@ -16,7 +21,60 @@ const defaultTheme = createTheme({
 });
 
 export default function Lockout() {
-    const router = useRouter();
+
+    const token = useStore((state) => state.token);
+    const [participants, setParticipants] = useState("");
+    const [startTime, setStartTime] = useState(0);
+    const [duration, setDuration] = useState("");
+    const [problems, setProblems] = useState([
+        {
+            index: 0,
+            rating: "800",
+            score: "100",
+        },
+    ]);
+
+    const handleCreateLockout = () => {
+        
+        let lockoutDetails = {}
+        lockoutDetails.participants = participants.split(" ")
+        lockoutDetails.start_time = startTime 
+        lockoutDetails.ratings = []
+        lockoutDetails.score = []
+        lockoutDetails.duration = parseInt(duration, 10)
+        for(let i=0; i<problems.length; i++){
+            lockoutDetails.ratings.push(problems[i].rating)
+            lockoutDetails.score.push(problems[i].score)
+        }
+
+        const headers = {
+            'Content-Type': 'application/json',
+            "token": token
+        }
+        axios
+            .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {headers} )
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const handleRemove = (index) => {
+        let newProblems = []
+        let idx=0
+        for(let i=0; i<problems.length; i++){
+            if(i != index){
+                newProblems.push(problems[i])
+                newProblems[idx].index = idx
+                idx += 1
+            }
+        }
+        setProblems(newProblems)
+        console.log(newProblems[index])
+        console.log(problems[index])
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -31,30 +89,14 @@ export default function Lockout() {
             >
                 CONTEST DETAILS
             </Typography>
-            <Box
-                sx={{
-                    width: "90%",
-                    height: "400px",
-                    padding: "2.5%",
-                    marginX: "2.5%",
-                    marginY: "20px",
-                    border: "2px solid #555555",
-                }}
-            >
-                <TextField
-                    fullWidth
-                    required
-                    label="Expected Participants"
-                    id="expectedParticipants"
-                    helperText="(Codeforces ID of participants seperated by space)"
-                    sx={{
-                        marginX: "0.8%",
-                    }}
-                />
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    {/* <DateAndTime /> */}
-                </FormControl>
-            </Box>
+            <ContestDetails
+                participants={participants}
+                setParticipants={setParticipants}
+                startTime={startTime}
+                setStartTime={setStartTime}
+                duration={duration}
+                setDuration={setDuration}
+            />
             <Typography
                 sx={{
                     marginTop: "30px",
@@ -65,18 +107,23 @@ export default function Lockout() {
             >
                 SELECT PROBLEMS
             </Typography>
-            <Box
+            <ProblemDetails problems={problems} setProblems={setProblems} handleRemove={handleRemove} />
+
+            <Button
+                variant="contained"
+                onClick={handleCreateLockout}
                 sx={{
-                    width: "90%",
-                    height: "400px",
-                    padding: "2.5%",
-                    marginX: "2.5%",
-                    marginY: "20px",
-                    border: "2px solid #555555",
+                    backgroundColor: "#494647",
+                    marginLeft: "2.5%",
+                    marginBottom: "30px",
+                    "&:hover": {
+                        backgroundColor: "primary.main",
+                    },
                 }}
             >
-
-            </Box>
+                CREATE
+            </Button>
+            <Footer />
         </ThemeProvider>
     );
 }
