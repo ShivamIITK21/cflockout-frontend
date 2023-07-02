@@ -1,6 +1,6 @@
 import { Box, Typography, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { useRouter } from "next/router";
 
 
@@ -25,7 +25,7 @@ export default function Lockout() {
 
             <Button
                 variant="contained"
-                onClick={() => {router.push("./newLockout")}}
+                onClick={() => {router.push("./lockout/newLockout")}}
                 sx={{
                     backgroundColor: "#38b000",
                     marginLeft: "40px",

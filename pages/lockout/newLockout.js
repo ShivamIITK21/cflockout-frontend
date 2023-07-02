@@ -1,13 +1,12 @@
 import { Box, Typography, Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import { useRouter } from "next/router";
-import ContestDetails from "../components/contestDetails";
-import ProblemDetails from "../components/problemDetails";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import ContestDetails from "../../components/contestDetails";
+import ProblemDetails from "../../components/problemDetails";
 import { useState } from "react";
 import axios from "axios";
-import useStore from "../components/store";
+import useStore from "../../components/store";
 
 const defaultTheme = createTheme({
     palette: {

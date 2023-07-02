@@ -73,7 +73,7 @@ export default function Header() {
                             },
                         }}
                         onClick={() => {
-                            router.push("./");
+                            router.push("/");
                         }}
                     >
                         Home
@@ -92,7 +92,7 @@ export default function Header() {
                             },
                         }}
                         onClick={() => {
-                            router.push("./lockout");
+                            router.push("/lockout");
                         }}
                     >
                         Lockout
@@ -111,7 +111,7 @@ export default function Header() {
                             },
                         }}
                         onClick={() => {
-                            router.push("./lockout");
+                            router.push("/lockout");
                         }}
                     >
                         User Statistics
