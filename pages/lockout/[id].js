@@ -32,7 +32,7 @@ export default function Lockout() {
         fetchData();
         const interval = setInterval(() => {
             fetchData();
-        }, 2000 * 1000);
+        }, 20 * 1000);
 
         return () => {
             clearInterval(interval);

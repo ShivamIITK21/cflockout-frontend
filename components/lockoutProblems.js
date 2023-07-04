@@ -7,12 +7,6 @@ export default function LockoutProblems(props) {
         if (data == null) return [];
         let problems = data.session_data.problems;
         problems = [...problems];
-        problems[0].firstsolvedby = "yuvrajKharayat"
-        problems[1].firstsolvedby = "yuvr47"
-        problems[2].firstsolvedby = "yuvrajKharayat"
-        problems[3].firstsolvedby = "_theCopyNinja"
-        problems[4].firstsolvedby = "yuvr47"
-        console.log(data);
         return problems;
     };
 

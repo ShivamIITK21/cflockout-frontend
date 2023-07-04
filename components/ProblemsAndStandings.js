@@ -16,7 +16,6 @@ export default function ProblemsAndStandings(props) {
         if(data==null)  return 
         let i=0
         let color = {}
-        console.log(data)
         Object.entries(data.session_data.participants).forEach(
             ([key, value]) => {
                 let username = key;
