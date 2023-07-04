@@ -30,7 +30,7 @@ export default function Home() {
                 <Header />
                 <Problems />
                 <Head>
-                    <title>Create Next App</title>
+                    <title>cfLockout</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <Footer />
