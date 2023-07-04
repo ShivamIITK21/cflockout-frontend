@@ -6,6 +6,7 @@ import ContestDetails from "../../components/contestDetails";
 import ProblemDetails from "../../components/problemDetails";
 import { useState } from "react";
 import axios from "axios";
+import dayjs from "dayjs"
 import useStore from "../../components/store";
 
 const defaultTheme = createTheme({
@@ -23,7 +24,8 @@ export default function Lockout() {
 
     const token = useStore((state) => state.token);
     const [participants, setParticipants] = useState("");
-    const [startTime, setStartTime] = useState(0);
+    const after5min = dayjs().add(5, 'minute');
+    const [startTime, setStartTime] = useState(Math.floor(after5min.valueOf()/1000));
     const [duration, setDuration] = useState("");
     const [problems, setProblems] = useState([
         {
@@ -40,7 +42,7 @@ export default function Lockout() {
         lockoutDetails.start_time = startTime 
         lockoutDetails.ratings = []
         lockoutDetails.score = []
-        lockoutDetails.duration = parseInt(duration, 10)
+        lockoutDetails.duration = parseInt(duration, 10) * 60
         for(let i=0; i<problems.length; i++){
             lockoutDetails.ratings.push(problems[i].rating)
             lockoutDetails.score.push(problems[i].score)
@@ -50,10 +52,11 @@ export default function Lockout() {
             'Content-Type': 'application/json',
             "token": token
         }
+        console.log(lockoutDetails)
         axios
             .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {headers} )
             .then((res) => {
-                window.location.href = "http://127.0.0.1:8080/lockout/" + res.data.session_id
+                window.location.href = "http://localhost:3000/lockout/" + res.data.session_id
             })
             .catch((error) => {
                 console.log(error);
