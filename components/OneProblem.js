@@ -32,8 +32,6 @@ export default function OneProblem(props) {
             }
         }
         setProblems(newProblems)
-        console.log(newProblems[index])
-        console.log(problems[index])
     }
 
     return (

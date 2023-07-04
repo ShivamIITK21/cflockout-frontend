@@ -26,10 +26,13 @@ export default function Header() {
 
     useEffect(() => {
         const token = localStorage.getItem("token")
+        const headers = {
+            token: token,
+        };
         const fetchData = async function(){
             try{
-                const response = await axios.get("http://localhost:8080/auth/verifyToken?token=" + token)
-                if(response.data.message=="OK"){
+                const response = await axios.get("http://localhost:8080/auth/verifyToken", {headers})
+                if(response.data.message==""){
                     setUsername(response.data.username)
                     setUserName(response.data.username);
                     setToken(token)

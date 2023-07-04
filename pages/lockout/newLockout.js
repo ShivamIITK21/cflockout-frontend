@@ -53,7 +53,7 @@ export default function Lockout() {
         axios
             .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {headers} )
             .then((res) => {
-                console.log(res)
+                window.location.href = "http://127.0.0.1:8080/lockout/" + res.data.session_id
             })
             .catch((error) => {
                 console.log(error);
@@ -71,8 +71,6 @@ export default function Lockout() {
             }
         }
         setProblems(newProblems)
-        console.log(newProblems[index])
-        console.log(problems[index])
     }
 
     return (
