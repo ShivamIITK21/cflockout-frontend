@@ -1,18 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import useStore from './store';
 import { create } from 'zustand'
 import ProblemGrid from './Grid';
 import Grid from '@mui/material'
 import UserInput from "../components/userInput";
-
-
-export const probStore = create((set) => ({
-    problems : [],
-    setProblems: (data) => set(() => ({ problems : data })),
-}))
 
 export const lastContestStore = create((set) => ({
     lastContest : "",
@@ -21,9 +15,8 @@ export const lastContestStore = create((set) => ({
 
 export default function Problems() {
 
+    const [probs, setProbs] = useState([])
     const currentCFID = useStore((state) => state.currentCFID)
-    const probs = probStore((state) => state.problems)
-    const setProbs = probStore((state) => state.setProblems)
     const setLC = lastContestStore((state) => state.setLastContest)
     const lc = lastContestStore((state) => state.lastContest)
     

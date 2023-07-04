@@ -1,8 +1,10 @@
 import Box from "@mui/material/Box";
 import { Typography, Button, Grid } from "@mui/material";
-import useStore from "./store";
 import { useRouter } from "next/router";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
+import useStore from "./store";
+import { useEffect, useState } from "react";
 
 const defaultTheme = createTheme({
     palette: {
@@ -16,7 +18,29 @@ const defaultTheme = createTheme({
 });
 
 export default function Header() {
-    const username = useStore((state) => state.username);
+
+    const [username, setUsername] = useState("")
+    const setUserCFID = useStore((state) => state.setUserCFID);
+    const setToken = useStore((state) => state.setToken);
+    const setUserName = useStore((state) => state.setUsername);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        const fetchData = async function(){
+            try{
+                const response = await axios.get("http://localhost:8080/auth/verifyToken?token=" + token)
+                if(response.data.message=="OK"){
+                    setUsername(response.data.username)
+                    setUserName(response.data.username);
+                    setToken(token)
+                    setUserCFID(response.data.cfid);
+                }
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchData()
+    },[])
 
     const router = useRouter();
     const handleLogin = (event) => {
@@ -26,12 +50,12 @@ export default function Header() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box
-                // container
                 sx={{
                     display: "flex",
                     backgroundColor: "primary.main",
                     height: "60px",
                     color: "secondary.main",
+                    overflow: "hidden"
                 }}
             >
                 <Grid

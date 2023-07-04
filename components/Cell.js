@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, getInitColorSchemeScript } from '@mui/material';
 
-const ColorMap = (rating) => {
-    if(rating == 0) return "black"
+export const ColorMap = (rating) => {
+    if(rating == NaN || rating == 0) return "black"
     if(rating < 1200) return "grey"
     if(rating < 1400) return "green"
     if(rating < 1600) return "#00c0c0"

@@ -65,7 +65,7 @@ export default function OneProblem(props) {
                 <TextField
                     fullWidth
                     required
-                    label="Score"
+                    label="Points"
                     id={"Score"+index}
                     value={score}
                     onChange={handleScore}

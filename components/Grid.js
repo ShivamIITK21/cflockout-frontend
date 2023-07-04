@@ -12,6 +12,7 @@ import { lastContestStore } from "./GetProblems";
 import GoToPage from "./GoToPage";
 
 export default function ProblemGrid(props) {
+    
     const problemData = props.problems;
     const lc = lastContestStore((state) => state.lastContest);
     const [page, setPage] = useState(1);
@@ -109,6 +110,7 @@ export default function ProblemGrid(props) {
                         sx={{
                             textAlign: "center",
                             fontFamily: "'Mukta', sans-serif",
+                            marginBottom: "20px",
                         }}
                     >
                         Go to page :{" "}

@@ -1,9 +1,9 @@
-import Head from 'next/head';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Problems from '../components/GetProblems';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
+import Head from "next/head";
+import { Box } from "@mui/material"
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Problems from "../components/GetProblems";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const defaultTheme = createTheme({
     palette: {
@@ -16,20 +16,25 @@ const defaultTheme = createTheme({
     },
 });
 
-
 export default function Home() {
-
-	return (
-		<div>
-			<ThemeProvider theme={defaultTheme}>
-				<Header />
-				<Problems />
-				<Head>
-					<title>Create Next App</title>
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
-				<Footer />
-			</ThemeProvider>
-		</div>
-	)
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <Box
+                sx={{
+                    display: "flex",
+                    minHeight: "100vh",
+                    flexDirection: "column",
+                    justifyContent: "flexStart",
+                }}
+            >
+                <Header />
+                <Problems />
+                <Head>
+                    <title>Create Next App</title>
+                    <link rel="icon" href="/favicon.ico" />
+                </Head>
+                <Footer />
+            </Box>
+        </ThemeProvider>
+    );
 }

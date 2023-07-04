@@ -67,10 +67,11 @@ export default function SignInSide() {
             .post("http://127.0.0.1:8080/auth/login", loginDetails)
             .then((res) => {
                 if (res.data.token != null) {
+                    setUsername(data.get("username"));
                     setUserCFID(res.data.cfID);
                     setToken(res.data.token);
                     setCurrentCFID("");
-                    setUsername(data.get("username"));
+                    localStorage.setItem("token", res.data.token);
                     setIncorrectPassMessage(false);
                     setNotFoundMessage(false);
                     router.push("/");
