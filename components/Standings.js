@@ -32,10 +32,13 @@ export default function Standings(props) {
                     console.error(error);
                 });
         }
+        console.log(data);
         if (data != null) {
             Object.entries(data.session_data.participants).forEach(
                 ([key, value]) => {
-                    getRating(key);
+                    if (!ratings[key]) {
+                        getRating(key);
+                    }
                 }
             );
         }
