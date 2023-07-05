@@ -1,15 +1,45 @@
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Link } from "@mui/material";
 import { ColorMap } from "./Cell";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Standings(props) {
-
     const { value, index, data } = props;
 
-    const getRating = (username) => {
-        
-    };
+    const [ratings, setRatings] = useState({});
+
+    useEffect(() => {
+        function getRating(username) {
+            const token = localStorage.getItem("token");
+            const headers = {
+                token: token,
+            };
+            const url =
+                "http://localhost:8080/lockout/getUserRating?cfid=" + username;
+            axios
+                .get(url, { headers })
+                .then((response) => {
+                    console.log(response.data);
+                    let rating = response.data.rating;
+                    if (rating === null) {
+                        rating = 0;
+                    }
+                    const newRatings = { ...ratings, [username]: rating };
+                    setRatings(newRatings);
+                    console.log(ratings);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+        if (data != null) {
+            Object.entries(data.session_data.participants).forEach(
+                ([key, value]) => {
+                    getRating(key);
+                }
+            );
+        }
+    }, [value]);
 
     const getParticipants = () => {
         let participants = [];
@@ -19,7 +49,6 @@ export default function Standings(props) {
                     let username = key;
                     let score = value;
                     participants.push({ username, score });
-                    getRating(username)
                 }
             );
             for (let i = 0; i < participants.length; i++) {
@@ -60,7 +89,8 @@ export default function Standings(props) {
                             display: "flex",
                             flexDirection: "row",
                             fontSize: "24px",
-                            fontWeight: "800px",
+                            fontWeight: "600px",
+                            fontFamily: "'Poppins', sans-serif",
                         }}
                     >
                         <Box
@@ -92,7 +122,7 @@ export default function Standings(props) {
                                 width: "30%",
                                 justifyContent: "center",
                                 alignItems: "end",
-                                marginRight: "5%",
+                                marginRight: "4%",
                             }}
                         >
                             Points
@@ -127,8 +157,25 @@ export default function Standings(props) {
                                     justifyContent: "center",
                                     alignItems: "center",
                                 }}
-                            >   
-                                {participant.username}
+                            >
+                                <Link
+                                    href={
+                                        "https://codeforces.com/profile/" +
+                                        participant.username
+                                    }
+                                    target="blank"
+                                    sx={{
+                                        textDecoration: "none",
+                                        color: ColorMap(
+                                            ratings[participant.username]
+                                        ),
+                                        "&:hover": {
+                                            cursor: "pointer",
+                                        },
+                                    }}
+                                >
+                                    {participant.username}
+                                </Link>
                             </Box>
                             <Box
                                 sx={{

@@ -6,7 +6,6 @@ export default function LockoutProblems(props) {
     const getProbs = () => {
         if (data == null) return [];
         let problems = data.session_data.problems;
-        problems = [...problems];
         return problems;
     };
 
