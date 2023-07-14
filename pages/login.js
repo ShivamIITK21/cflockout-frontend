@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useStore from "../components/store";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { BASE_URL } from "../constants/constants";
 
 function Copyright(props) {
     return (
@@ -64,7 +65,7 @@ export default function SignInSide() {
             password: data.get("password"),
         };
         axios
-            .post("http://127.0.0.1:8080/auth/login", loginDetails)
+            .post(BASE_URL + "auth/login", loginDetails)
             .then((res) => {
                 if (res.data.token != null) {
                     setUsername(data.get("username"));

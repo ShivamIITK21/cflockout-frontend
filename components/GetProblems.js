@@ -8,6 +8,7 @@ import ProblemGrid from './Grid';
 import Grid from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress';
 import UserInput from "../components/userInput";
+import { BASE_URL } from '../constants/constants';
 
 export const lastContestStore = create((set) => ({
     lastContest : "",
@@ -25,7 +26,7 @@ export default function Problems() {
     useEffect(() => {
         const fetchData = async function(){
             setLoading(true);
-            let url = "http://localhost:8080/problems"
+            let url = BASE_URL + "problems"
             if(currentCFID!="")    url = url + "?user=" + currentCFID
             try{
                 const response = await axios.get(url)

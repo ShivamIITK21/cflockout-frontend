@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import useStore from "../components/store";
+import { BASE_URL } from "../constants/constants";
 
 function Copyright(props) {
     return (
@@ -79,7 +80,7 @@ export default function SignUpSide() {
         };
 
         axios
-            .post("http://127.0.0.1:8080/auth/signup", SignUpDetails)
+            .post(BASE_URL + "auth/signup", SignUpDetails)
             .then((res) => {
                 if (res.data.problem != null) {
                     setProblemLink(res.data.problem);
@@ -87,7 +88,7 @@ export default function SignUpSide() {
                     setUserCFID(data.get("cfid"));
                     setUsername(data.get("username"));
                     setToggle(true);
-                    setTimeout(changeTimeStatus, 5000);
+                    setTimeout(changeTimeStatus, 60000);
                 }
             })
             .catch((error) => {
@@ -97,7 +98,7 @@ export default function SignUpSide() {
 
     const UserVerificationStatus = () => {
         axios
-            .get("http://127.0.0.1:8080/auth/findUser?username=" + user, {})
+            .get(BASE_URL + "auth/findUser?username=" + user, {})
             .then((res) => {
                 if (res.data.message == "Not found") {
                     setFound(-1);
@@ -105,7 +106,7 @@ export default function SignUpSide() {
                     setUsername("");
                 } else {
                     setFound(1);
-                    setTimeout(signupDone, 5000);
+                    setTimeout(signupDone, 60000);
                 }
             })
             .catch((error) => {

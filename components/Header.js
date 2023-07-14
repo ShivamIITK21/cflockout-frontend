@@ -5,6 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import useStore from "./store";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../constants/constants";
 
 const defaultTheme = createTheme({
     palette: {
@@ -31,7 +32,7 @@ export default function Header() {
         };
         const fetchData = async function(){
             try{
-                const response = await axios.get("http://localhost:8080/auth/verifyToken", {headers})
+                const response = await axios.get(BASE_URL + "auth/verifyToken", {headers})
                 if(response.data.message==""){
                     setUsername(response.data.username)
                     setUserName(response.data.username);

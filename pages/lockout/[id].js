@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useStore from "../../components/store";
 import axios from "axios";
 import ProblemsAndStandings from "../../components/ProblemsAndStandings";
+import { BASE_URL } from "../../constants/constants";
 
 export default function Lockout() {
 
@@ -26,7 +27,7 @@ export default function Lockout() {
                 token: token,
             };
             const url =
-                "http://localhost:8080/lockout/getUserRating?cfid=" + username;
+                BASE_URL + "lockout/getUserRating?cfid=" + username;
             try {
                 const response = await axios.get(url, { headers });
                 let rating = response.data.rating;
@@ -54,8 +55,12 @@ export default function Lockout() {
     useEffect(() => {
         if (!router.isReady) return;
         const fetchData = async function () {
+            const token = localStorage.getItem("token");
+            const headers = {
+                token: token,
+            };
             let url =
-            "http://localhost:8080/lockout?session_id=" +
+            BASE_URL + "lockout?session_id=" +
             router.query["id"];
             try {
                 const response = await axios.get(url, { headers });

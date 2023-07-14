@@ -8,6 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import useStore from "../../components/store";
+import { BASE_URL } from "../../constants/constants";
 
 const defaultTheme = createTheme({
     palette: {
@@ -55,12 +56,12 @@ export default function Lockout() {
         };
         console.log(lockoutDetails);
         axios
-            .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {
+            .post(BASE_URL + "lockout/create", lockoutDetails, {
                 headers,
             })
             .then((res) => {
                 window.location.href =
-                    "http://localhost:3000/lockout/" + res.data.session_id;
+                    "/lockout/" + res.data.session_id;
             })
             .catch((error) => {
                 setError(error.response.data.error)
