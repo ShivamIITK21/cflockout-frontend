@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Standings from "./Standings";
 import LockoutProblems from "./lockoutProblems";
 import Countdown from "./Countdown";
+import { Typography } from "@mui/material";
 
 export default function ProblemsAndStandings(props) {
 
@@ -101,9 +102,14 @@ export default function ProblemsAndStandings(props) {
                         color={getColors()}
                     />
                 ) : (
-                    <div>
+                    <Typography sx={{
+                        fontSize: "24px",
+                        color: "#9C27B0",
+                        marginTop: "30px",
+                        textAlign : "center",
+                    }}>
                         Contest has not started yet
-                    </div>
+                    </Typography>
                 ))}
             <Standings value={value} index={2} data={data} ratings={ratings} />
         </Box>
