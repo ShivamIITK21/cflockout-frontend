@@ -24,7 +24,7 @@ export default function ProblemGrid(props) {
     };
 
     const getRows = () => {
-        if (lc == 0 || problemData.length == 0) return;
+        if (lc === 0 || problemData.length === 0) return;
 
         let inRows = [];
         let row = [];
@@ -80,7 +80,7 @@ export default function ProblemGrid(props) {
                         </Grid>
                     ))}
             </Grid>
-            {(numPages == 0 ? "" : numPages) && (
+            {(numPages === 0 ? "" : numPages) && (
                 <Stack>
                     <Pagination
                         count={numPages}

@@ -8,8 +8,11 @@ import axios from "axios";
 import ProblemsAndStandings from "../../components/ProblemsAndStandings";
 
 export default function Lockout() {
+
     const router = useRouter();
     const [data, setData] = useState(null);
+    const [isDataFetched, setIsDataFetched] = useState(false)
+    const [ratings, setRatings] = useState({});
 
     const token = useStore((state) => state.token);
     const headers = {
@@ -17,14 +20,49 @@ export default function Lockout() {
     };
 
     useEffect(() => {
+        const getRating = async function (username) {
+            const token = localStorage.getItem("token");
+            const headers = {
+                token: token,
+            };
+            const url =
+                "http://localhost:8080/lockout/getUserRating?cfid=" + username;
+            try {
+                const response = await axios.get(url, { headers });
+                let rating = response.data.rating;
+                    if (rating === null) {
+                        rating = 0;
+                    }
+                    const newRatings = { ...ratings}
+                    newRatings[username] = rating
+                    console.log(username, rating)
+                    setRatings(newRatings);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        if (data != null) {
+            Object.entries(data.session_data.participants).forEach(
+                ([key, value]) => {
+                    if (!ratings[key]) {
+                        getRating(key);
+                    }
+                }
+            );
+        }
+    }, [router.isReady, isDataFetched]);
+    
+    useEffect(() => {
         if (!router.isReady) return;
         const fetchData = async function () {
             let url =
-                "http://localhost:8080/lockout?session_id=" +
-                router.query["id"];
+            "http://localhost:8080/lockout?session_id=" +
+            router.query["id"];
             try {
                 const response = await axios.get(url, { headers });
                 setData(response.data);
+                setIsDataFetched(true)
+                console.log(response.data)
             } catch (err) {
                 console.log(err);
             }
@@ -49,7 +87,7 @@ export default function Lockout() {
             }}
         >
             <Header />
-            <ProblemsAndStandings data={data} />
+            <ProblemsAndStandings data={data} ratings={ratings}/>
             <Footer />
         </Box>
     );

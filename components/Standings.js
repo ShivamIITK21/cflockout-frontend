@@ -4,46 +4,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 export default function Standings(props) {
-    const { value, index, data } = props;
 
-    const [ratings, setRatings] = useState({});
+    const { value, index, data, ratings } = props;
 
-    useEffect(() => {
-        function getRating(username) {
-            const token = localStorage.getItem("token");
-            const headers = {
-                token: token,
-            };
-            const url =
-                "http://localhost:8080/lockout/getUserRating?cfid=" + username;
-            axios
-                .get(url, { headers })
-                .then((response) => {
-                    console.log(response.data);
-                    let rating = response.data.rating;
-                    if (rating === null) {
-                        rating = 0;
-                    }
-                    const newRatings = { ...ratings, [username]: rating };
-                    setRatings(newRatings);
-                    console.log(ratings);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-        console.log(data);
-        if (data != null) {
-            Object.entries(data.session_data.participants).forEach(
-                ([key, value]) => {
-                    if (!ratings[key]) {
-                        getRating(key);
-                    }
-                }
-            );
-        }
-    }, [value]);
-
+    console.log(ratings)
     const getParticipants = () => {
         let participants = [];
         if (data != null) {
@@ -67,6 +31,10 @@ export default function Standings(props) {
         return participants;
     };
 
+    const getBGcolor = (i) => {
+        return i%2===1 ? "#EFF2EF" : "#ffffff"
+    }
+
     return (
         <Box>
             {value == index && (
@@ -83,17 +51,18 @@ export default function Standings(props) {
                         fontSize: "18px",
                         fontFamily: "'Mukta', sans-serif",
                     }}
-                >
+                    >
                     <Box
                         sx={{
-                            height: "50px",
+                            height: "60px",
                             marginTop: "10px",
-                            borderBottom: "1px solid grey",
+                            borderBottom: "3px solid black",
                             display: "flex",
                             flexDirection: "row",
-                            fontSize: "24px",
-                            fontWeight: "600px",
-                            fontFamily: "'Poppins', sans-serif",
+                            fontSize: "28px",
+                            fontWeight: "bold",
+                            fontFamily: "'Mukta', sans-serif",
+                            backgroundColor: "#EAE1DF"
                         }}
                     >
                         <Box
@@ -139,6 +108,10 @@ export default function Standings(props) {
                                 borderBottom: "1px solid grey",
                                 display: "flex",
                                 flexDirection: "row",
+                                backgroundColor: getBGcolor(i),
+                                "&:hover": {
+                                    backgroundColor: "#D9D9D9",
+                                },
                             }}
                         >
                             <Box
@@ -172,6 +145,8 @@ export default function Standings(props) {
                                         color: ColorMap(
                                             ratings[participant.username]
                                         ),
+                                        fontWeight: "bold",
+                                        textShadow: "none",
                                         "&:hover": {
                                             cursor: "pointer",
                                         },

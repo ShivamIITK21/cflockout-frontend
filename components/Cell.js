@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Typography, getInitColorSchemeScript } from '@mui/material';
 
 export const ColorMap = (rating) => {
+    console.log(rating)
     if(rating === 0 || rating === undefined) return "black"
     if(rating < 1200) return "grey"
     if(rating < 1400) return "green"
@@ -18,10 +19,10 @@ export const ColorMap = (rating) => {
 }
 
 const getBGColor = (status) => {
-    if(status=="AC"){
+    if(status==="AC"){
         return "#85FFBA"
     }
-    else if(status=="WA"){
+    else if(status==="WA"){
         return "rgba(247, 124, 124, 0.5)"
     }
     else{
@@ -30,10 +31,10 @@ const getBGColor = (status) => {
 }
 
 const getColor = (status) => {
-    if(status=="AC"){
+    if(status==="AC"){
         return "#2FEE9C"
     }
-    else if(status=="WA"){
+    else if(status==="WA"){
         return "#ff9999"
     }
     else{
