@@ -47,6 +47,7 @@ export default function OneProblem(props) {
                     required
                     label="Rating"
                     id={"Rating"+index}
+                    type="number"
                     value={rating}
                     onChange={handleRating}
                     sx={{
@@ -64,6 +65,7 @@ export default function OneProblem(props) {
                     fullWidth
                     required
                     label="Points"
+                    type="number"
                     id={"Score"+index}
                     value={score}
                     onChange={handleScore}

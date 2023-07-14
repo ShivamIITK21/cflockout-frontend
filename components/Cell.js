@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import { Typography, getInitColorSchemeScript } from '@mui/material';
 
 export const ColorMap = (rating) => {
-    console.log(rating)
     if(rating === 0 || rating === undefined) return "black"
     if(rating < 1200) return "grey"
     if(rating < 1400) return "green"

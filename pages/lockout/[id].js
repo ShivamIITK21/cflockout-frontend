@@ -33,9 +33,8 @@ export default function Lockout() {
                     if (rating === null) {
                         rating = 0;
                     }
-                    const newRatings = { ...ratings}
+                    const newRatings = ratings
                     newRatings[username] = rating
-                    console.log(username, rating)
                     setRatings(newRatings);
             } catch (err) {
                 console.log(err);
@@ -62,7 +61,6 @@ export default function Lockout() {
                 const response = await axios.get(url, { headers });
                 setData(response.data);
                 setIsDataFetched(true)
-                console.log(response.data)
             } catch (err) {
                 console.log(err);
             }

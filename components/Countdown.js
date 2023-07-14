@@ -25,8 +25,10 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
 };
 
 export default function Component(props) {
+
+
     var end = props.end * 1000;
-    var z = props.text;
+    var text = props.text;
 
     return (
         <Box
@@ -43,7 +45,7 @@ export default function Component(props) {
                     width: "120px",
                 }}
             >
-                {z}
+                {text}
             </Box>
             <Countdown date={end} renderer={renderer} />
         </Box>

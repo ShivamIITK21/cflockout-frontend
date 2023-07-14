@@ -7,7 +7,6 @@ export default function Standings(props) {
 
     const { value, index, data, ratings } = props;
 
-    console.log(ratings)
     const getParticipants = () => {
         let participants = [];
         if (data != null) {

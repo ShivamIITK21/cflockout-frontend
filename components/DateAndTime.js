@@ -52,6 +52,7 @@ export default function SelectDateAndTime(props) {
                         required
                         label="Duration(in minutes)"
                         id="duration"
+                        type="number"
                         value={duration}
                         onChange={handleDuration}
                         sx={{

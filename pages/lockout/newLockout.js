@@ -6,7 +6,7 @@ import ContestDetails from "../../components/contestDetails";
 import ProblemDetails from "../../components/problemDetails";
 import { useState } from "react";
 import axios from "axios";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 import useStore from "../../components/store";
 
 const defaultTheme = createTheme({
@@ -21,12 +21,14 @@ const defaultTheme = createTheme({
 });
 
 export default function Lockout() {
-
     const token = useStore((state) => state.token);
     const [participants, setParticipants] = useState("");
-    const after5min = dayjs().add(5, 'minute');
-    const [startTime, setStartTime] = useState(Math.floor(after5min.valueOf()/1000));
+    const after5min = dayjs().add(5, "minute");
+    const [startTime, setStartTime] = useState(
+        Math.floor(after5min.valueOf() / 1000)
+    );
     const [duration, setDuration] = useState("");
+    const [Error, setError] = useState("No error");
     const [problems, setProblems] = useState([
         {
             index: 0,
@@ -36,45 +38,48 @@ export default function Lockout() {
     ]);
 
     const handleCreateLockout = () => {
-        
-        let lockoutDetails = {}
-        lockoutDetails.participants = participants.split(" ")
-        lockoutDetails.start_time = startTime 
-        lockoutDetails.ratings = []
-        lockoutDetails.score = []
-        lockoutDetails.duration = parseInt(duration, 10) * 60
-        for(let i=0; i<problems.length; i++){
-            lockoutDetails.ratings.push(problems[i].rating)
-            lockoutDetails.score.push(problems[i].score)
+        let lockoutDetails = {};
+        lockoutDetails.participants = participants.split(" ");
+        lockoutDetails.start_time = startTime;
+        lockoutDetails.ratings = [];
+        lockoutDetails.score = [];
+        lockoutDetails.duration = parseInt(duration, 10) * 60;
+        for (let i = 0; i < problems.length; i++) {
+            lockoutDetails.ratings.push(problems[i].rating);
+            lockoutDetails.score.push(problems[i].score);
         }
 
         const headers = {
-            'Content-Type': 'application/json',
-            "token": token
-        }
-        console.log(lockoutDetails)
+            "Content-Type": "application/json",
+            token: token,
+        };
+        console.log(lockoutDetails);
         axios
-            .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {headers} )
+            .post("http://127.0.0.1:8080/lockout/create", lockoutDetails, {
+                headers,
+            })
             .then((res) => {
-                window.location.href = "http://localhost:3000/lockout/" + res.data.session_id
+                window.location.href =
+                    "http://localhost:3000/lockout/" + res.data.session_id;
             })
             .catch((error) => {
+                setError(error.response.data.error)
                 console.log(error);
             });
     };
 
     const handleRemove = (index) => {
-        let newProblems = []
-        let idx=0
-        for(let i=0; i<problems.length; i++){
-            if(i != index){
-                newProblems.push(problems[i])
-                newProblems[idx].index = idx
-                idx += 1
+        let newProblems = [];
+        let idx = 0;
+        for (let i = 0; i < problems.length; i++) {
+            if (i != index) {
+                newProblems.push(problems[i]);
+                newProblems[idx].index = idx;
+                idx += 1;
             }
         }
-        setProblems(newProblems)
-    }
+        setProblems(newProblems);
+    };
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -107,7 +112,23 @@ export default function Lockout() {
             >
                 SELECT PROBLEMS
             </Typography>
-            <ProblemDetails problems={problems} setProblems={setProblems} handleRemove={handleRemove} />
+            <ProblemDetails
+                problems={problems}
+                setProblems={setProblems}
+                handleRemove={handleRemove}
+            />
+
+            {Error != "No error" && (
+                <Typography
+                    sx={{
+                        marginBottom: "10px",
+                        marginLeft: "2.5%",
+                        color: "red",
+                    }}
+                >
+                    {Error}
+                </Typography>
+            )}
 
             <Button
                 variant="contained"
