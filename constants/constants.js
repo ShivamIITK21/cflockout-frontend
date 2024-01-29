@@ -1,2 +1,1 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-console.log(BASE_URL)
+export const BASE_URL = "https://medicine-drawn-fifth-attempt.trycloudflare.com" 
