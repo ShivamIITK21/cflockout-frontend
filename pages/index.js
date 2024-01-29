@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import Problems from "../components/GetProblems";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
+
 const defaultTheme = createTheme({
     palette: {
         primary: {

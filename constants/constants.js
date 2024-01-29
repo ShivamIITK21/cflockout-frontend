@@ -1,1 +1,1 @@
-export const BASE_URL = "https://columbus-sequences-waiting-install.trycloudflare.com/"
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
